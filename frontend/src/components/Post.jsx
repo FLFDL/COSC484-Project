@@ -4,9 +4,21 @@ import image from '../assets/test-post.jpg';
 import Rating from './Rating';
 import Comment from './Comment';
 import { Link } from 'react-router-dom';
+import { useRef } from 'react';
 
 const Post = ({postData, currUser}) => {
-  return (
+  
+    const commentSectionRef = useRef(null);
+
+    const toggleComments = () => {
+        const section = commentSectionRef.current;
+
+        if (section) {
+            section.classList.toggle('hidden');
+        }
+    }
+  
+    return (
     <div className='post' id = {postData.id}>
         <section className="post-header">
             <div className = "user-info">
@@ -27,10 +39,10 @@ const Post = ({postData, currUser}) => {
 
             <section className="post-footer">
                 <p className = "light-gray post-date">Posted: {postData.datePosted}</p>
-                <button className = "open-comments-btn"></button>
+                <button className = "open-comments-btn" onClick={toggleComments}></button>
             </section>
 
-            <section className="collapsible-comments">
+            <section ref = {commentSectionRef} className="collapsible-comments hidden">
                 <form method="POST" action ="" className = "comment">
                     <label>
                         <Link className = "username" to="/profile">{currUser}</Link>:

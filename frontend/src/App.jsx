@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import {About, CommunityGuidelines, Home, Login, SignUp, Profile} from './pages'
 import { BrowserRouter, Routes, Route, Link, Outlet} from 'react-router-dom';
@@ -20,6 +19,7 @@ function App() {
           <Route path = "*" element = {<NotFound/>}/>
         </Route>
         
+        {/*these two pages don't have a navbar */}
         <Route path = "/login" element={<Login/>}/>
         <Route path = "/sign-up" element={<SignUp/>}/>
         

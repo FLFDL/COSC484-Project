@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Post from '../components/Post'
+import { useRef } from 'react';
 
 const testPost = {
     "id": 1,
@@ -72,6 +73,15 @@ const posts = [testPost, testPost2];
 const currUser = "bob";
 
 export const Home = () => {
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  };
+  
   return (
     <main className = "home-page">
       
@@ -90,7 +100,7 @@ export const Home = () => {
                     <option value="select">Latest</option>
                     <option value="select">Oldest</option>
                 </select>
-            <button id = "back-to-top-btn">Back to Top</button>
+            <button id = "back-to-top-btn" onClick={scrollToTop} >Back to Top</button>
         </div>
       </aside>
     </main>
