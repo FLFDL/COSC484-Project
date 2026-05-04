@@ -40,6 +40,7 @@ const Post = ({postData, currUser}) => {
             <section className="post-footer">
                 <p className = "light-gray post-date">Posted: {postData.datePosted}</p>
                 <button className = "open-comments-btn" onClick={toggleComments}></button>
+                {/*if user not logged in, make btn route user to login */}
             </section>
 
             <section ref = {commentSectionRef} className="collapsible-comments hidden">

@@ -67,10 +67,9 @@ const testPost2 = {
     ]
 
 };
-
 const posts = [testPost, testPost2];
-
 const currUser = "bob";
+//need to get posts and current user logged in from backend to display on home page
 
 export const Home = () => {
   
