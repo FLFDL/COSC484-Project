@@ -61,7 +61,7 @@ main {
 }
 
 .form-page {
-    height: 100vh;
+    min-height: 100vh;
     background-color: #6d6875;
     display: flex;
     align-items: center;
@@ -71,7 +71,7 @@ main {
 }
 
 .form-box {
-    width: 320px;
+    width: 400px;
     padding: 30px;
     border-radius: 10px;
     background-color: #f0f0f0;
@@ -97,7 +97,7 @@ input {
 button {
     display: block;
     width: 90%;
-    margin: 15px auto 0;
+    margin: 15px auto 0.5rem;
     padding: 10px;
     border: none;
     border-radius: 6px;
@@ -412,7 +412,7 @@ aside {
     resize: vertical;
     font-family: inherit;
     display: block;
-    margin: 0.4rem 0;
+    margin-top: 0.4rem;
 }
 .post-comment-btn {
     width: 4rem;
