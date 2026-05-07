@@ -1,16 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 export const Login = () => {
   return (
-    <main className = "form-page">
-        <div className="form-box">
-            <h1>Login</h1>
+    <main className="form-page">
+      <div className="form-box">
+        <h1>Login</h1>
 
-            <input type="text" id="usernameInput" placeholder="Username" required/>
-            <input type="password" id="passwordInput" placeholder="Password" required/>
+        <p>Don't an account? Make one {""}
+          <Link to="/sign-up">here</Link>
+        </p>
 
-            <button id="loginButton">Login</button>
-        </div>
+        <Link to = "/about">quick</Link>
+        <input type="text" id="usernameInput" placeholder="Username" required />
+        <input type="password" id="passwordInput" placeholder="Password" required />
+        <button id="loginButton">Login</button>
+      </div>
     </main>
   )
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

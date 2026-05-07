@@ -1,4 +1,6 @@
-
+html {
+    scroll-behavior: smooth;
+}
 * {
     box-sizing: border-box;
 }
@@ -474,3 +476,62 @@ aside {
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 /* End about page css*/
+
+/* Community guidelines page css */
+#guidelines-container {
+
+    padding-top: 5%;
+    width: 75%;
+    justify-content: center;
+    margin: auto;
+    display: flex;
+}
+
+#guidelines-title {
+
+    justify-content: center;
+    margin: auto;
+    width: 90%;
+    font-size: 2.75rem;
+    padding-top: 5%;
+}
+
+#guidelines-toc {
+    list-style-type: none;
+    font-size: 1.25rem;
+    
+}
+
+#guidelines-toc a {
+    text-decoration: none;
+    color: #6d6875;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    padding: .5rem 0;
+    border-bottom: 1px solid ;
+}
+
+#guidelines-toc a:hover {
+    text-decoration: underline;
+    color: #B5838D;
+}
+
+.guidelines-heading {
+    font-size: 2rem;
+    color: #6d6875;
+    margin-top: 2rem;
+}
+
+.guidelines-text {
+    margin: auto;
+    width: 80%;
+    font-size: 1.25rem;
+}
+
+#mission {
+    font-size: 3rem;
+}
+
+.guidelines-toc-item {
+    margin: 1rem 0;
+}
