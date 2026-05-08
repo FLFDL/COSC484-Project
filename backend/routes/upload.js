@@ -4,6 +4,16 @@ const multer = require('multer')
 const path = require('path')
 const requireAuth = require('../middleware/requireAuth')
 
+const fs = require('fs')
+const cloudinary = require('cloudinary').v2
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true
+})
+
 // store uploads in /uploads with a unique filename
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -19,12 +29,13 @@ const storage = multer.diskStorage({
 })
 
 // only accept image files
+// removed gif since we only have free tier of cloudinary atm
 const fileFilter = (req, file, cb) => {
-  const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+  const allowed = ['image/jpeg', 'image/png', 'image/webp']
   if (allowed.includes(file.mimetype)) {
     cb(null, true)
   } else {
-    cb(new Error('only jpg, png, webp, and gif images are allowed'), false)
+    cb(new Error('only jpg, png, and webp images are allowed'), false)
   }
 }
 
@@ -36,20 +47,41 @@ const upload = multer({
 
 // POST /api/upload — accepts a single image, returns the URL to use in a post
 // react form should send FormData with field name "image"
-router.post('/', requireAuth, upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'no file uploaded' })
+router.post('/', requireAuth,   upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'no file uploaded' })
+    }
+
+    // upload to cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path,
+      {
+        folder: 
+        `users/${req.session.userId}/posts`,
+        overwrite: true,
+        resource_type: 'image'
+      }
+    )
+
+    // delete temp file
+    fs.unlink(req.file.path, (err) => {
+      if (err) {
+        console.error('failed to delete temp file: ', err)
+      }
+    })
+
+    // return cloudinary url
+    res.json({
+      message: 'upload successful',
+      imageUrl: result.secure_url,
+      publicId: result.public_id
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error: 'upload failed'})
+    
   }
 
-  // return a URL that can be used in <img src="..." />
-  // since we serve /uploads statically in server.js, this works
-  const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
-
-  res.json({
-    message: 'upload successful',
-    imageUrl,
-    filename: req.file.filename
-  })
 })
 
 // multer error handler — friendly messages instead of stack traces

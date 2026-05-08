@@ -29,7 +29,7 @@ app.use(session({
 }))
 
 // serve uploaded images statically at /uploads/<filename>
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+//app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // connect to mongo
 mongoose.connect(process.env.MONGO_URI)
