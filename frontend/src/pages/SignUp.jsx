@@ -10,35 +10,24 @@ export const SignUp = () => {
 
   const [croppedImg, setCroppedImg] = useState(null);
 
-
-
   const createAccount = async (event) => {
     event.preventDefault(); //prevent page refresh
 
     const newAccount = new FormData(event.currentTarget);
-
-    //logging to see if formdata is working
-
-
     // Check password match
     if (newAccount.get('newPassword') !== newAccount.get('confirmPassword')) {
       alert("Passwords do not match!");
       return;
     }
-
     //initialize bio if empty
     if (newAccount.get('newBio') == '') {
       newAccount.set('newBio', 'No bio provided');
     }
     //console.log(newAccount.get('newBio'));
-
     //set pfp to cropped version if cropped
     if (croppedImg != null) {
       newAccount.set('pfp', croppedImg, `${newAccount.get('newUsername')}.jpg`);
     }
-
-
-
 
     console.log("sending data for account creation");
     /*SEND FORM DATA TO BACKEND HERE -- newAccount contains form 
