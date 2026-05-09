@@ -24,7 +24,7 @@ export const Login = () => {
           <p>Don't an account? Make one {""}
             <Link to="/sign-up">here</Link>
           </p>
-          <input type="text" name="usernameInput" placeholder="Username" required />
+          <input type="text" name="usernameInput" placeholder="Username or Email" required />
           <input type="password" name="passwordInput" placeholder="Password" required />
 
           <button type="submit">Login</button>
