@@ -53,6 +53,7 @@ export const SignUp = () => {
           <Link to="/login">here</Link>
         </p>
         <input type="text" name="newUsername" placeholder="Username" required />
+        <input type="email" name="email" placeholder="Example@email.com" required/>
         <input type="password" name="newPassword" placeholder="Password" required />
         <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
 
