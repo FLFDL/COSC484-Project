@@ -11,6 +11,30 @@ export const Login = () => {
 
     /*connect to backend to login user if account exists */
 
+    const formData = new FormData(event.currentTarget);
+
+    try {
+      const res = await fetch('http://localhost:5001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          identifier: formData.get('usernameInput'),
+          password: formData.get('passwordInput')
+        })
+      });
+      const data = await res.json();
+      console.log(data);
+      if(!res.ok) {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+
     //navigate to profile page afterward
     navigate('/profile');
   }

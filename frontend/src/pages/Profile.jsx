@@ -23,7 +23,7 @@ export const Profile = () => {
       const formData = new FormData();
       formData.append('image', profilePic);
 
-      const uploadResponse = await fetch('http://localhost:8080/api/upload', {
+      const uploadResponse = await fetch('http://localhost:5001/api/upload', {
         method: "POST",
         body: formData
       });
@@ -32,7 +32,7 @@ export const Profile = () => {
       profilePicUrl = uploadData.imageUrl;
     }
 
-    const response = await fetch('http://localhost:8080/api/users/profile', {
+    const response = await fetch('http://localhost:5001/api/users/profile', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -50,7 +50,7 @@ export const Profile = () => {
   useEffect(() => {
 
     const fetchUser = async () => {
-      const response = await fetch('http://localhost:8080/api/auth/me');
+      const response = await fetch('http://localhost:5001/api/auth/me', {credentials:'include'});
       if (!response.ok) {
         window.location.href = "/login";
         return;
@@ -60,9 +60,9 @@ export const Profile = () => {
       setBio(data.bio || "");
       setProfilePic(data.profilePic);
 
-      const postResponse = await fetch(`http://localhost:8080/api/users/${data.username}`);
+      const postResponse = await fetch(`http://localhost:5001/api/users/${data.username}`, {credentials:'include'});
       const postData = await postResponse.json();
-      setPosts(postData.posts);
+      setPosts(postData.posts || []);
     }
 
     fetchUser();
@@ -108,7 +108,7 @@ export const Profile = () => {
           + Add Post
         </div>
 
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <Post
             key={post._id || post.id}
             postData={post}
