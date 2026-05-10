@@ -177,8 +177,8 @@ button:not(.open-comments-btn):hover {
 }
 
 .modal {
-    display: none;
     position: fixed;
+    inset: 0;
     z-index: 999;
     left: 0;
     top: 0;
