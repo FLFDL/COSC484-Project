@@ -221,6 +221,7 @@ button:not(.open-comments-btn):hover {
     border-radius: 8px;
     cursor: pointer;
 }
+
 /* End Profile css */
 
 /*home page css*/
@@ -534,4 +535,14 @@ aside {
 
 .guidelines-toc-item {
     margin: 1rem 0;
+}
+
+/**/
+
+/**/
+
+.editProfile label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
 }

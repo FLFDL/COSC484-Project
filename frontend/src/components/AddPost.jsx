@@ -141,7 +141,6 @@ export default function AddPost({ username, onAddPost, onClose }) {
                 />
             )}
 
-
             <div className="modal-actions">
                 <button type="submit" disabled={loading}>
                     {loading ? "Posting..." : "Post"}

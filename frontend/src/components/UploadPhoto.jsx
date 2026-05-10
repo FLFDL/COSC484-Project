@@ -33,6 +33,9 @@ import "cropperjs/dist/cropper.css"
                 
             }, 'image/jpeg');
             
+            setImage("");
+            setCroppedImg("");
+            // clear the img and cropped so theyre not there after cropping
             //getCroppedImg = croppedImg;
         }
     }
@@ -45,7 +48,6 @@ import "cropperjs/dist/cropper.css"
             accept = "image/*"
             name = "pfp"
             onChange = {onImgChange}
-            required
         />
 
         {image && (

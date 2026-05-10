@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import UploadPhoto from '../components/UploadPhoto'
+import EditProfile from '../components/EditProfile'
 import AddPost from '../components/AddPost'
 import Post from '../components/Post'
 
@@ -14,11 +15,31 @@ export const Profile = () => {
   const [posts, setPosts] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const handleSaveProfile = async ({ username, bio, profilePic }) => {
+    if (username) {
+      setUsername(username);
+      localStorage.setItem("loggedInUser", username);
+    }
+    if (bio) {
+      setBio(bio);
+      localStorage.setItem("loggedInUserBio", bio);
+    }
+    if (profilePic) {
+      setProfilePic(profilePic);
+      localStorage.setItem("loggedInUserPic", profilePic);
+    }
+
+  }
 
   const getCroppedImg = (photo) => {
-    const imageUrl = URL.createObjectURL(photo);
-    setProfilePic(imageUrl);
-    localStorage.setItem("loggedInUserPic", imageUrl);
+    const reader = new FileReader();
+    reader.onload = () => {
+        setProfilePic(reader.result);
+        localStorage.setItem("loggedInUserPic", reader.result);
+    }
+    reader.readAsDataURL(photo);
   }
   useEffect(() => {
 
@@ -65,7 +86,10 @@ export const Profile = () => {
           <p id="bio">
             {bio || "Example bio for a profile"}
           </p>
-          <UploadPhoto getCroppedImg={getCroppedImg} />
+          <button
+            onClick={() => setShowEditModal(true)}>
+            Edit Profile
+          </button>
         </div>
       </div>
 
@@ -73,10 +97,11 @@ export const Profile = () => {
 
         <div
           className="addPostTile"
-          
+
           onClick={() => {
             console.log("clicked add post tile");
-            setShowModal(true)}
+            setShowModal(true)
+          }
           }
         >
           + Add Post
@@ -98,11 +123,6 @@ export const Profile = () => {
         <div
           id="postModal"
           className="modal"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowModal(false);
-            }
-          }}
         >
           <div className="modal-content">
             <AddPost
@@ -119,6 +139,23 @@ export const Profile = () => {
           </div>
         </div>
 
+      )}
+
+      {showEditModal && (
+
+        <div className="modal"
+          
+        >
+          <div className="modal-content">
+            <EditProfile
+              username={username}
+              bio={bio}
+              onSave={handleSaveProfile}
+              onClose={() => setShowEditModal(false)}
+            />
+          </div>
+
+        </div>
       )}
 
     </main>
