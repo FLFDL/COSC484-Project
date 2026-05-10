@@ -4,7 +4,7 @@ const User = require('../models/User')
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body
+  const { username, email, password, bio, profilePic } = req.body
 
   if (!username || !email || !password) {
     return res.status(400).json({ error: 'all fields are required' })
@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'username or email already taken' })
     }
 
-    const user = await User.create({ username, email, password })
+    const user = await User.create({ username, email, password, bio, profilePic })
 
     // log them in right after registering
     req.session.userId = user._id

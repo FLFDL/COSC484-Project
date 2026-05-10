@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Post = require('../models/Post')
 const requireAuth = require('../middleware/requireAuth')
+const cloudinary = require('cloudinary').v2
 
 // GET /api/posts
 // supports ?sort=recent|popular|unpopular and ?search=petname
@@ -55,7 +56,7 @@ router.get('/:id', async (req, res) => {
 
 // POST /api/posts — create a new post
 router.post('/', requireAuth, async (req, res) => {
-  const { imageUrl, caption, petName } = req.body
+  const { imageUrl, publicId, caption, petName } = req.body
 
   if (!imageUrl || !petName) {
     return res.status(400).json({ error: 'image and pet name are required' })
@@ -64,7 +65,8 @@ router.post('/', requireAuth, async (req, res) => {
   try {
     const post = await Post.create({
       author: req.session.userId,
-      imageUrl,
+      imageUrl,  
+      publicId,  // cloudinary identifier
       caption,
       petName
     })
@@ -73,7 +75,7 @@ router.post('/', requireAuth, async (req, res) => {
     res.status(201).json(post)
   } catch (err) {
     console.error(err)
-    res.status(500).json({ error: 'could not create post' })
+    res.status(500).json({ error: 'could not create post', details:err.message })
   }
 })
 
@@ -86,7 +88,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
     if (post.author.toString() !== req.session.userId.toString()) {
       return res.status(403).json({ error: "you can't delete someone else's post" })
     }
-
+    await cloudinary.uploader.destroy(post.publicId)
     await post.deleteOne()
     res.json({ message: 'post deleted' })
   } catch (err) {

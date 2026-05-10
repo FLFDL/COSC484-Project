@@ -3,9 +3,23 @@ import { useId } from 'react'
 import '../App.css';
 
 const Rating = () => {
+    /*generating unique ids to allow inputs/labels to 
+    be associated without duplicate ids on page
+    */
     const id = useId();
+
+    const submitRating = async (event) => {
+        event.preventDefault();
+        
+        const addRating = new FormData(event.currentTarget);
+        console.log("User rating:" + addRating.get('rating'));
+        /*send this rating to backend: update to numRatings++ and 
+        compute new average rating*/
+    }
+
+
     return (
-    <form className = "rating-container" method = "POST" onSubmit = "">
+    <form className = "rating-container" method = "POST" onSubmit = {submitRating}>
             
             <button type="submit" >Rate</button>
 
