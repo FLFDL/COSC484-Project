@@ -5,6 +5,7 @@ import UploadPhoto from './UploadPhoto';
 export default function EditProfile({ username, bio, onSave, onClose }) {
 
     const [newUsername, setNewUsername] = useState(username);
+    const [newPassword, setNewPassword] = useState("");
     const [newBio, setNewBio] = useState(bio);
     const [newPfp, setNewPfp] = useState(null)
 
@@ -16,7 +17,8 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
         onSave({
             username: newUsername,
             bio: newBio,
-            profilePic: newPfp
+            profilePic: newPfp,
+            ...(newPassword && { password: newPassword })
         });
         onClose();
     }
@@ -37,6 +39,13 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
                 onChange={(e) => setNewUsername(e.target.value)}
             />
 
+            <label>Password</label>
+            <input
+                type = "text"
+                placeholder = "Enter new password"
+                value = {newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+            />
             <label>Bio</label>
             <textarea
                 placeholder="Enter new bio"

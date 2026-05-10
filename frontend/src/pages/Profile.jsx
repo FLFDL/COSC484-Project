@@ -36,13 +36,16 @@ export const Profile = () => {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        username,
         bio,
+        ...(password && { password }),
         ...(profilePicUrl && { profilePic: profilePicUrl })
       })
     });
 
     const data = await response.json();
     setBio(data.bio);
+    setUsername(data.username);
     if (data.profilePic) setProfilePic(data.profilePic);
 
   }
@@ -62,7 +65,7 @@ export const Profile = () => {
 
       const postResponse = await fetch(`http://localhost:5001/api/users/${data.username}`, {credentials:'include'});
       const postData = await postResponse.json();
-      //setPosts(postData.posts);
+      setPosts(postData.posts);
     }
 
     fetchUser();
@@ -112,7 +115,7 @@ export const Profile = () => {
           <Post
             key={post._id || post.id}
             postData={post}
-            currentUser={username}
+            currUser={username}
           />
         ))}
 

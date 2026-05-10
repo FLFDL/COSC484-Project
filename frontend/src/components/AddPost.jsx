@@ -30,7 +30,8 @@ export default function AddPost({ username, onAddPost, onClose }) {
 
         const response = await fetch('http://localhost:5001/api/upload', {
             method: "POST",
-            body: formData
+            body: formData,
+            credentials: "include"
         })
         
         if (!response.ok) {
@@ -81,6 +82,7 @@ export default function AddPost({ username, onAddPost, onClose }) {
                     headers: {
                         "Content-Type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify(postData)
                 })
 
@@ -89,6 +91,7 @@ export default function AddPost({ username, onAddPost, onClose }) {
             }
 
             const savedPost = await response.json();
+            console.log(savedPost);
 
             onAddPost(savedPost);
             setCaption("");

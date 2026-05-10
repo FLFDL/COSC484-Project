@@ -1,12 +1,11 @@
 import React, {useState, useRef} from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import image from '../assets/test-post.jpg';
 import Rating from './Rating';
 import Comment from './Comment';
 
 
 const Post = ({postData, currUser}) => {
-  
+    console.log(postData);
     const commentSectionRef = useRef(null);
     
     //need to check user session
@@ -39,32 +38,32 @@ const Post = ({postData, currUser}) => {
     }
 
     return (
-    <div className='post' id = {postData.id}>
+    <div className='post' id = {postData._id}>
         <section className="post-header">
             <div className = "user-info">
-                <img src = {image} className = "profilePic" />
-                <Link to = {`/profile/${postData.author}`} className = "username">{postData.author}</Link>
+                <img src = {postData.author.profilePic} className = "profilePic" />
+                <Link to = {`/profile/${postData.author.username}`} className = "username">{postData.author.username}</Link>
             </div>
             <p className = "light-gray">
                     <span className = "avg-rating bold" title = "Average Rating">{postData.avgRating}</span>
-                    <span className = "num-ratings" title = "Total Ratings"> ({postData.totalRatings})</span>
+                    <span className = "num-ratings" title = "Total Ratings"> ({postData.ratings.length})</span>
                     <i className="fa-solid fa-star"></i>
             </p>
         </section>
         <section className="post-content">
-            <img className = "post-image" src = {image}></img>
-            <p className="post-description">{postData.description}</p>
+            <img src = {postData.imageUrl} className = "post-image" ></img>
+            <p className="post-description">{postData.caption}</p>
 
             <Rating/>
 
             <section className="post-footer">
-                <p className = "light-gray post-date">Posted: {postData.datePosted}</p>
+                <p className = "light-gray post-date">Posted: {postData.createdAt}</p>
                 <button className = "open-comments-btn" onClick={toggleComments}></button>
                 {/*if user not logged in, make btn route user to login */}
             </section>
 
             <section ref = {commentSectionRef} className="collapsible-comments hidden">
-                <form method="POST" className = "comment" onSubmit = {(e) => postComment(e, postData.id, currUser)}>
+                <form method="POST" className = "comment" onSubmit = {(e) => postComment(e, postData._id, currUser)}>
                     <label>
                         <Link className = "username" to={`/profile/${currUser}`}>{currUser}</Link>:
                         <textarea className = "comment-box" name = "comment-text" placeholder = "Leave a comment..."></textarea>
@@ -72,7 +71,7 @@ const Post = ({postData, currUser}) => {
                     <button className = "post-comment-btn" type = "submit">Post</button>
                 </form>
                 {postData.comments?.map((comment) => (
-                    <Comment key = {comment.id} username = {comment.username} text = {comment.text}/>
+                    <Comment key = {comment.id} username = {comment.author.username} text = {comment.text}/>
                 ))}
             </section>
         </section>

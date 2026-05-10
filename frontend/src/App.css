@@ -537,12 +537,44 @@ aside {
     margin: 1rem 0;
 }
 
-/**/
+/* end comm guidelines css */
 
-/**/
+/* edit profile component css */
 
 .editProfile label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
 }
+
+/**/
+
+#profilePosts .post {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+#profilePosts .post .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;  
+    position: absolute;
+}
+
+/*
+#profilePosts .post .post-header,
+#profilePosts .post .post-description,
+#profilePosts .post .post-footer,
+#profilePosts .post .rating-container,
+#profilePosts .post .collapsible-comments {
+    display: none;
+}
+    */
