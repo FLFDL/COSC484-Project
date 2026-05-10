@@ -72,7 +72,7 @@ const Post = ({postData, currUser}) => {
                     <button className = "post-comment-btn" type = "submit">Post</button>
                 </form>
 
-                {postData.comments.map((comment) => (
+                {postData.comments?.map((comment) => (
                     <Comment key = {comment.id} username = {comment.username} text = {comment.text}/>
                 ))}
             </section>
