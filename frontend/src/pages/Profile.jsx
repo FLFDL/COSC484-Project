@@ -62,7 +62,7 @@ export const Profile = () => {
 
       const postResponse = await fetch(`http://localhost:5001/api/users/${data.username}`, {credentials:'include'});
       const postData = await postResponse.json();
-      setPosts(postData.posts || []);
+      //setPosts(postData.posts);
     }
 
     fetchUser();

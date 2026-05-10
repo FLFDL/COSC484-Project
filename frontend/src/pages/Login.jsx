@@ -30,13 +30,15 @@ export const Login = () => {
       if(!res.ok) {
         throw new Error(data.error);
       }
+
+      //navigate to profile page afterward
+      navigate('/profile');
+
     } catch (err) {
       console.error(err);
       alert(err.message);
     }
 
-    //navigate to profile page afterward
-    navigate('/profile');
   }
 
 
