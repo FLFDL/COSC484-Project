@@ -23,7 +23,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  publicId: {
+  publicId: { // identifier for cloudinary, don't display this
     type: String,
     required: true
   },
