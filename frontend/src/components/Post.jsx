@@ -43,7 +43,7 @@ const Post = ({postData, currUser}) => {
         <section className="post-header">
             <div className = "user-info">
                 <img src = {image} className = "profilePic" />
-                <Link to = "/profile" className = "username">{postData.author}</Link>
+                <Link to = {`/profile/${postData.author}`} className = "username">{postData.author}</Link>
             </div>
             <p className = "light-gray">
                     <span className = "avg-rating bold" title = "Average Rating">{postData.avgRating}</span>
@@ -66,12 +66,11 @@ const Post = ({postData, currUser}) => {
             <section ref = {commentSectionRef} className="collapsible-comments hidden">
                 <form method="POST" className = "comment" onSubmit = {(e) => postComment(e, postData.id, currUser)}>
                     <label>
-                        <Link className = "username" to="/profile">{currUser}</Link>:
+                        <Link className = "username" to={`/profile/${currUser}`}>{currUser}</Link>:
                         <textarea className = "comment-box" name = "comment-text" placeholder = "Leave a comment..."></textarea>
                     </label>
                     <button className = "post-comment-btn" type = "submit">Post</button>
                 </form>
-
                 {postData.comments?.map((comment) => (
                     <Comment key = {comment.id} username = {comment.username} text = {comment.text}/>
                 ))}

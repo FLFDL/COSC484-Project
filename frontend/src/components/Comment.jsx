@@ -4,7 +4,7 @@ const Comment = ({username, text}) => {
   return (
     <div className='comment'>
         <p>
-            <Link className = "username" to = "/Profile">{username}</Link>: 
+            <Link className = "username" to = {`/profile/${username}`}>{username}</Link>: 
             <span className="comment-content"> {text}</span>
         </p>
     </div>

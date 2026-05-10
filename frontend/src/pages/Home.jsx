@@ -15,19 +15,19 @@ const testPost = {
     "datePosted": "12-12-2012",
     "Comments": [
         {
-          "id":1,  
+          "id":13242,  
           "username": "RockEater900",
             "text": "I eat rocks"
         },
 
         {
-          "id":2,
+          "id":233,
             "username": "frog",
             "text": "kitty meowww omg meowww kitty woawwwwwww kitty"
         },
 
         {
-            "id":3,
+            "id":33434,
             "username": "meeps",
             "text": "asdasdass asdasdsa asdasd ads ads asd asd asd asd ads"
         }
@@ -46,7 +46,7 @@ const testPost2 = {
     "imgURL": "../assets/test-post.jpg",
     "description": "kitty",
     "datePosted": "10-12-2012",
-    "Comments": [
+    "comments": [
         {
           "id":348,  
           "username": "RockEater900",
@@ -67,7 +67,7 @@ const testPost2 = {
     ]
 
 };
-const posts = [testPost, testPost2];
+const posts = [testPost2, testPost2];
 const currUser = "bob";
 //need to get posts and current user logged in from backend to display on home page
 
