@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import UploadPhoto from '../components/UploadPhoto'
 import EditProfile from '../components/EditProfile'
 import AddPost from '../components/AddPost'
 import Post from '../components/Post'
@@ -18,59 +17,61 @@ export const Profile = () => {
   const [showEditModal, setShowEditModal] = useState(false);
 
   const handleSaveProfile = async ({ username, bio, profilePic }) => {
-    if (username) {
-      setUsername(username);
-      localStorage.setItem("loggedInUser", username);
-    }
-    if (bio) {
-      setBio(bio);
-      localStorage.setItem("loggedInUserBio", bio);
-    }
+    let profilePicUrl = null;
+
     if (profilePic) {
-      setProfilePic(profilePic);
-      localStorage.setItem("loggedInUserPic", profilePic);
+      const formData = new FormData();
+      formData.append('image', profilePic);
+
+      const uploadResponse = await fetch('http://localhost:8080/api/upload', {
+        method: "POST",
+        body: formData
+      });
+
+      const uploadData = await uploadResponse.json();
+      profilePicUrl = uploadData.imageUrl;
     }
+
+    const response = await fetch('http://localhost:8080/api/users/profile', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        bio,
+        ...(profilePicUrl && { profilePic: profilePicUrl })
+      })
+    });
+
+    const data = await response.json();
+    setBio(data.bio);
+    if (data.profilePic) setProfilePic(data.profilePic);
 
   }
 
-  const getCroppedImg = (photo) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-        setProfilePic(reader.result);
-        localStorage.setItem("loggedInUserPic", reader.result);
-    }
-    reader.readAsDataURL(photo);
-  }
   useEffect(() => {
 
-    const storedUsername = localStorage.getItem("loggedInUser");
-    const storedBio = localStorage.getItem("loggedInUserBio");
-    const storedPic = localStorage.getItem("loggedInUserPic");
-
-
-    if (storedUsername) {
-      setUsername(storedUsername);
-
-      if (storedBio) {
-        setBio(storedBio);
-      }
-
-      if (storedPic) {
-        setProfilePic(storedPic);
-      }
-      /* un comment this lol
-      } else {
+    const fetchUser = async () => {
+      const response = await fetch('http://localhost:8080/api/auth/me');
+      if (!response.ok) {
         window.location.href = "/login";
-        */
+        return;
+      }
+      const data = await response.json();
+      setUsername(data.username);
+      setBio(data.bio || "");
+      setProfilePic(data.profilePic);
+
+      const postResponse = await fetch(`http://localhost:8080/api/users/${data.username}`);
+      const postData = await postResponse.json();
+      setPosts(postData.posts);
     }
+
+    fetchUser();
 
   }, []);
 
-  /* add new post */
   const handleAddPost = (newPost) => {
     setPosts([newPost, ...posts]);
   }
-
 
   return (
     <main>
@@ -117,7 +118,7 @@ export const Profile = () => {
 
       </div>
 
-
+      {/* add post modal */}
       {showModal && (
 
         <div
@@ -141,10 +142,11 @@ export const Profile = () => {
 
       )}
 
+      {/* edit profile modal */}
       {showEditModal && (
 
         <div className="modal"
-          
+
         >
           <div className="modal-content">
             <EditProfile

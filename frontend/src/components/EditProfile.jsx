@@ -9,11 +9,7 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
     const [newPfp, setNewPfp] = useState(null)
 
     const handleCroppedImg = (photo) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setNewPfp(reader.result);
-        }
-        reader.readAsDataURL(photo);
+        setNewPfp(photo);
     }
 
     const handleSubmit = () => {

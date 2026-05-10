@@ -32,13 +32,16 @@ export default function AddPost({ username, onAddPost, onClose }) {
             method: "POST",
             body: formData
         })
-
+        
         if (!response.ok) {
             throw new Error('Image upload failed');
         }
 
         const data = await response.json();
-        return data.imageUrl
+        return {
+            imageUrl: data.imageUrl,
+            publicId: data.publicId
+        };
     }
 
 
@@ -63,12 +66,13 @@ export default function AddPost({ username, onAddPost, onClose }) {
 
         try {
 
-            const imageUrl = await uploadImage();
+            const { imageUrl, publicId } = await uploadImage();
 
             const postData = {
                 caption,
                 petName,
                 imageUrl,
+                publicId,
             }
 
             const response = await fetch('http://localhost:8080/api/posts',
