@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link, Outlet} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MainLayout from './components/MainLayout';
 import NotFound from './components/NotFound';
+import PublicProfile from './pages/PublicProfile';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
           <Route path = "/about" element={<About/>}/>
           <Route path = "/community-guidelines" element={<CommunityGuidelines/>}/>
           <Route path = "/profile" element={<Profile/>}/>
-          <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/public-profile" element={<PublicProfile />} />
           <Route path = "*" element = {<NotFound/>}/>
         </Route>
         
