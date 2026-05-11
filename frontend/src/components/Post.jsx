@@ -73,7 +73,7 @@ const Post = ({postData, currUser}) => {
             <section ref = {commentSectionRef} className="collapsible-comments hidden">
                 <form method="POST" className = "comment" onSubmit = {(e) => postComment(e, postData._id, currUser)}>
                     <label>
-                        <Link className = "username" to="/public-profile">{currUser}</Link>:
+                        <Link className = "username" to={`/profile/${currUser}`}>{currUser}</Link>:
                         <textarea className = "comment-box" name = "comment-text" placeholder = "Leave a comment..."
                         value = {commentText}
                         onChange = {(text) => setCommentText(text.target.value)}></textarea>
