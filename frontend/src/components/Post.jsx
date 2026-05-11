@@ -28,9 +28,6 @@ const Post = ({postData, currUser}) => {
     
     const postComment = async (event, postId, currUser) => {
         event.preventDefault();
-
-        
-        const data = Object.fromEntries(addComment);
         const uploadComment = await fetch(`http://localhost:5001/api/posts/${postId}/comments`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -38,7 +35,7 @@ const Post = ({postData, currUser}) => {
             body: JSON.stringify({ text: commentText })
         })
         const comment = await uploadComment.json();
-        if (!uploadComment.ok) throw new error(data.error)
+        if (!uploadComment.ok) throw new Error(comment.error)
 
         setComments(old => [...old,comment ])
         setCommentText('');
@@ -83,7 +80,7 @@ const Post = ({postData, currUser}) => {
                     </label>
                     <button className = "post-comment-btn" type = "submit">Post</button>
                 </form>
-                {postData.comments?.map((comment) => (
+                {comments?.map((comment) => (
                     <Comment key = {comment._id} username = {comment.author.username} text = {comment.text}/>
                 ))}
             </section>
