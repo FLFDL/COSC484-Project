@@ -36,13 +36,19 @@ main {
     color: white;
 }
 
-.navbar li:hover {
+.navbar li:hover,
+.navbar li button:hover {
     background-color: #a36b76;
     border-radius: 6px;
     transition: background-color 0.3s ease;
 }
-.navbar li {
+.navbar li,
+.navbar li button {
     list-style-type: none;
+}
+
+.navbar li button {
+    background-color: red;
 }
 
 .navbar ul {
