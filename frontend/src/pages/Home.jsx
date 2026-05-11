@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Post from '../components/Post'
 import { useRef } from 'react';
 
+{/*
 const testPost = {
   "id": 1,
 
@@ -71,6 +72,7 @@ const testPost2 = {
 const posts = [testPost2, testPost2];
 
 //need to get posts and current user logged in from backend to display on home page
+ */}
 
 export const Home = () => {
   const [currUser, setUser] = useState(null)
@@ -82,6 +84,10 @@ export const Home = () => {
       behavior: 'smooth'
     });
   };
+
+  const [sortBy, setSortBy] = useState('recent');
+
+  
 useEffect(() => {
 const checkUser = async () => {
       const response = await fetch('http://localhost:5001/api/auth/me', {credentials:'include'});
@@ -98,32 +104,36 @@ const checkUser = async () => {
   
    useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('http://localhost:5001/api/posts', {
+      const response = await fetch(`http://localhost:5001/api/posts?sort=${sortBy}`, {
         credentials: 'include'
       });
       const data = await response.json();
       setPosts(data);
     }
     fetchPosts();
-  }, []);
+  }, [sortBy]);
 
 return (
   <main className="home-page">
 
     <div className="container">
       {posts.map((post) => (
-        <Post key={post.id} postData={post} currUser={currUser} />
+        <Post key={post._id} postData={post} currUser={currUser} />
       ))}
     </div>
 
     <aside>
       <div className="filters">
         <label htmlFor="content-filters">Sort by: </label>
-        <select id="content-filters">
-          <option value="select">Select</option>
-          <option value="select">Most Rated</option>
-          <option value="select">Latest</option>
-          <option value="select">Oldest</option>
+        <select id="content-filters"
+        value = {sortBy}
+        onChange = {(e) => setSortBy(e.target.value)}>
+          <option value="recent">Recent</option>
+          <option value="popular">Most Rated</option>
+          {/*<option value="unpopular">Least Rated</option>*/}
+          <option value="top-rated">Top Rated</option>
+          {/*<option value="recent">Latest</option>*/}
+          <option value="oldest">Oldest</option>
         </select>
         <button id="back-to-top-btn" onClick={scrollToTop} >Back to Top</button>
       </div>
