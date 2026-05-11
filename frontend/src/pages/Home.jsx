@@ -67,11 +67,13 @@ const testPost2 = {
   ]
 
 };
+
 const posts = [testPost2, testPost2];
-const currUser = "bob";
+
 //need to get posts and current user logged in from backend to display on home page
 
 export const Home = () => {
+  const [currUser, setUser] = useState(null)
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -80,7 +82,18 @@ export const Home = () => {
       behavior: 'smooth'
     });
   };
-
+useEffect(() => {
+const checkUser = async () => {
+      const response = await fetch('http://localhost:5001/api/auth/me', {credentials:'include'});
+      if (!response.ok) {
+        setUser(null)
+        return;
+      }
+      const data = await response.json();
+      setUser(data.username);
+    }
+    checkUser();
+  },[]);
   const [posts, setPosts] = useState([]);
   
    useEffect(() => {

@@ -152,6 +152,10 @@ export default function AddPost({ username, onAddPost, onClose }) {
                 <button type="submit" disabled={loading}>
                     {loading ? "Posting..." : "Post"}
                 </button>
+                <button type="button"
+                    onClick={onClose}>
+                    Cancel
+                </button>
             </div>
         </form>
     )

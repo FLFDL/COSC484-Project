@@ -4,48 +4,83 @@ import UploadPhoto from './UploadPhoto';
 
 export default function EditProfile({ username, bio, onSave, onClose }) {
 
-    const [newUsername, setNewUsername] = useState(username);
-    const [newPassword, setNewPassword] = useState("");
     const [newBio, setNewBio] = useState(bio);
-    const [newPfp, setNewPfp] = useState(null)
+    const [newPfp, setNewPfp] = useState(null);
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleCroppedImg = (photo) => {
         setNewPfp(photo);
     }
 
-    const handleSubmit = () => {
-        onSave({
-            username: newUsername,
-            bio: newBio,
-            profilePic: newPfp,
-            ...(newPassword && { password: newPassword })
-        });
-        onClose();
+    const uploadImage = async () => {
+        const formData = new FormData();
+        formData.append('image', newPfp);
+
+        const response = await fetch('http://localhost:5001/api/upload', {
+            method: "POST",
+            body: formData,
+            credentials: "include"
+        })
+
+        if (!response.ok) {
+            throw new Error('Image upload failed');
+        }
+
+        const data = await response.json();
+        return data.imageUrl;
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            let profilePicUrl = null;
+            if (newPfp) {
+                profilePicUrl = await uploadImage();
+            }
+
+            const response = await fetch('http://localhost:5001/api/users/profile',
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        bio: newBio,
+                        ...(profilePicUrl && { profilePic: profilePicUrl })
+                    })
+                });
+
+            if (!response.ok) {
+                throw new Error('Failed to update profile');
+            }
+
+            const savedProfile = await response.json();
+            console.log(savedProfile);
+
+            onSave(savedProfile);
+            onClose();
+        } catch (error) {
+            console.error(error);
+            setError("Something went wrong. Try again.");
+        } finally {
+            setLoading(false);
+        }
+
     }
 
     return (
-        <form className="editProfile" onSubmit={(e) => { 
-            e.preventDefault();
-            handleSubmit();
-        }}>
+        <form className="editProfile" onSubmit={handleSubmit}>
 
             <h2>Edit Profile</h2>
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
-            <label>Username</label>
-            <input
-                type="text"
-                placeholder="Enter new username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-            />
-
-            <label>Password</label>
-            <input
-                type = "text"
-                placeholder = "Enter new password"
-                value = {newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-            />
             <label>Bio</label>
             <textarea
                 placeholder="Enter new bio"
@@ -56,15 +91,15 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
             <UploadPhoto getCroppedImg={handleCroppedImg} />
 
             <div className="modal-actions">
-                <button type="submit">
-                    Save
+                <button type="submit" disabled={loading}>
+                    {loading ? "Saving..." : "Save"}
                 </button>
                 <button type="button"
                     onClick={onClose}>
                     Cancel
                 </button>
             </div>
-            
+
         </form>
     )
 }
