@@ -16,6 +16,8 @@ export const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
+
+
   const handleSaveProfile = async ({ username, password, bio, profilePic }) => {
     let profilePicUrl = null;
 
@@ -78,6 +80,10 @@ export const Profile = () => {
     setPosts([newPost, ...posts]);
   }
 
+  const handleDeletePost = (postId) => {
+    setPosts(posts.filter(post => post._id !== postId));
+  }
+
   return (
     <main>
       <div className="profileHeader">
@@ -93,7 +99,9 @@ export const Profile = () => {
             {bio || "Example bio for a profile"}
           </p>
           <button
+            id = "editProfile-btn"
             onClick={() => setShowEditModal(true)}>
+              
             Edit Profile
           </button>
         </div>
@@ -118,6 +126,7 @@ export const Profile = () => {
             key={post._id || post.id}
             postData={post}
             currUser={username}
+            onDelete={handleDeletePost}
           />
         ))}
 
