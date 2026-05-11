@@ -18,7 +18,7 @@ export const Home = () => {
   
 useEffect(() => {
 const checkUser = async () => {
-      const response = await fetch(`http://localhost:5001/api/auth/me`, {credentials:'include'});
+      const response = await fetch(`/api/auth/me`, {credentials:'include'});
       if (!response.ok) {
         setUser(null)
         return;
@@ -32,7 +32,7 @@ const checkUser = async () => {
   
    useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`http://localhost:5001/api/posts?sort=${sortBy}`, {
+      const response = await fetch(`/api/posts?sort=${sortBy}`, {
         credentials: 'include'
       });
       const data = await response.json();
