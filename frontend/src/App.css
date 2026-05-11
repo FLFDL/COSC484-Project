@@ -172,7 +172,7 @@ button:not(.open-comments-btn):hover {
     border-top: 1px solid black;
 }
 
-#profilePosts img,
+#profilePosts,
 .addPostTile {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -591,6 +591,16 @@ aside {
     margin: 0;
 }
 
+.user-info img {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+#profilePosts .post .post-header {
+    max-height: 5rem;
+}
 /*
 #profilePosts .post .post-header,
 #profilePosts .post .post-description,

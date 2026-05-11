@@ -63,7 +63,7 @@ const Post = ({ postData, currUser, onDelete }) => {
         <div className='post' id={postData._id}>
             <section className="post-header">
                 <div className="user-info">
-                    <img src={postData.author.profilePic || null} className="profilePic" />
+                    <img src={postData.author.profilePic || null} className="post-pfp" />
                     <Link to={`/profile/${postData.author.username}`} className="username">{postData.author.username}</Link>
                 </div>
                 <p className="light-gray">
