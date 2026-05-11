@@ -263,7 +263,6 @@ aside {
     min-width: 100px;
     flex-direction: column;
     top: 40%;
-    display: none;
 }
 
 .filters {

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useId } from 'react'
 import '../App.css';
+import axios from 'axios'
 
-const Rating = () => {
+const Rating = ({postId}) => {
     /*generating unique ids to allow inputs/labels to 
     be associated without duplicate ids on page
     */
@@ -12,11 +13,39 @@ const Rating = () => {
         event.preventDefault();
         
         const addRating = new FormData(event.currentTarget);
-        console.log("User rating:" + addRating.get('rating'));
-        /*send this rating to backend: update to numRatings++ and 
-        compute new average rating*/
-    }
 
+        postId = postId.toString();
+        console.log("Post id: " + postId );
+        console.log("sending rating of:" + addRating.get('rating'));
+        var ratingVal = addRating.get('rating');
+        //console.log(typeof +ratingVal);
+        /*send this rating to backend*/
+
+        try {
+            const res = await fetch(`http://localhost:5001/api/posts/${postId}/rate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+                credentials: 'include',
+                body: JSON.stringify({
+                    value: +ratingVal
+                }),
+            
+            })
+
+            const data = await res.json();
+            console.log(data);
+
+            if(!res.ok) {
+                throw new Error(data.error || 'rating failed');
+            }
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
+        }
+    
+    }
 
     return (
     <form className = "rating-container" method = "POST" onSubmit = {submitRating}>

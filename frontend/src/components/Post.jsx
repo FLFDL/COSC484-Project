@@ -10,6 +10,8 @@ const Post = ({ postData, currUser, onDelete }) => {
     const navigate = useNavigate();
     const [comments, setComments] = useState(postData.comments || []);
     const [commentText, setCommentText] = useState('');
+    const [avgRating, setAvgRating] = useState(postData.avgRating || 0);
+    const [numRatings, setNumRatings] = useState(postData.ratings ? postData.ratings.length : 0);
 
     //need to check user session
     const isLoggedIn = !!currUser;
@@ -74,9 +76,10 @@ const Post = ({ postData, currUser, onDelete }) => {
             </section>
             <section className="post-content">
                 <img src={postData.imageUrl} className="post-image" ></img>
+                <h2>{postData.petName}</h2>
                 <p className="post-description">{postData.caption}</p>
 
-                <Rating />
+                <Rating postId = {postData._id}/>
 
                 <section className="post-footer">
                     <p className="light-gray post-date">Posted: {postData.createdAt}</p>

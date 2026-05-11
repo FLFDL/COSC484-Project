@@ -129,7 +129,6 @@ return (
         value = {sortBy}
         onChange = {(e) => setSortBy(e.target.value)}>
           <option value="recent">Recent</option>
-          <option value="popular">Most Rated</option>
           {/*<option value="unpopular">Least Rated</option>*/}
           <option value="top-rated">Top Rated</option>
           {/*<option value="recent">Latest</option>*/}
