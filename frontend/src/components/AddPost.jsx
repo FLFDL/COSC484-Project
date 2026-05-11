@@ -27,7 +27,7 @@ export default function AddPost({ username, onAddPost, onClose }) {
         const formData = new FormData();
         formData.append('image', image);
 
-        const response = await fetch(`http://localhost:5001/api/upload`, {
+        const response = await fetch(`/api/upload`, {
             method: "POST",
             body: formData,
             credentials: "include"
@@ -75,7 +75,7 @@ export default function AddPost({ username, onAddPost, onClose }) {
                 publicId,
             }
 
-            const response = await fetch(`http://localhost:5001/api/posts`,
+            const response = await fetch(`/api/posts`,
                 {
                     method: "POST",
                     headers: {
