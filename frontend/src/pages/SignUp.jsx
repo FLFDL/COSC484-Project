@@ -26,7 +26,7 @@ export const SignUp = () => {
     //console.log(newAccount.get('newBio'));
     //set pfp to cropped version if cropped
     if (croppedImg != null) {
-      newAccount.set('pfp', croppedImg, `${newAccount.get('newUsername')}.jpg`);
+      newAccount.set('image', croppedImg, `${newAccount.get('newUsername')}.jpg`);
     }
 
     console.log("sending data for account creation");
@@ -35,11 +35,63 @@ export const SignUp = () => {
       
       also need to send pfp file to cloudinary but not sure how thats done
       
-    */
+    
     const data = Object.fromEntries(newAccount);
     console.log(data);
     //navigate to profile page afterward
-    navigate('/profile');
+    navigate('/profile'); */
+
+    try {
+      let pfpUrl = ''; // can change this to a default pfp
+
+      // uploads img to database if not null
+      if (croppedImg != null) {
+        const imageData = new FormData();
+        imageData.append('image', croppedImg);
+
+        const uploadRes = await fetch('http://localhost:5001/api/upload', {
+          method: 'POST',
+          credentials: 'include',
+          body: imageData
+        });
+
+        const uploadData = await uploadRes.json();
+
+        if(!uploadRes.ok) {
+          throw new Error(uploadData.error || 'upload failed');
+        }
+
+        pfpUrl = uploadData.imageUrl;
+      }
+
+      const res = await fetch('http://localhost:5001/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          username: newAccount.get('newUsername'),
+          email: newAccount.get('email'),
+          password: newAccount.get('newPassword'),
+          bio: newAccount.get('newBio'),
+          profilePic: pfpUrl
+        })
+      });
+
+      const data = await res.json();
+      console.log(data);
+      if(!res.ok) {
+        throw new Error(data.error || 'registration failed');
+      }
+
+      //navigate to profile page afterward
+      navigate('/profile');
+
+    } catch(err) {
+      console.error(err);
+      alert(err.message);
+    }
 
   }
 
