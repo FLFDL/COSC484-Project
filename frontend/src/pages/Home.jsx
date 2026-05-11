@@ -2,78 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Post from '../components/Post'
 import { useRef } from 'react';
 
-{/*
-const testPost = {
-  "id": 1,
-
-  "author": "John poster",
-  "pfpURL": "../assets/test-post.jpg",
-  "avgRating": 3.5,
-  "totalRatings": 40,
-
-  "imgURL": "../assets/test-post.jpg",
-  "description": "behold, kitty.",
-  "datePosted": "12-12-2012",
-  "Comments": [
-    {
-      "id": 13242,
-      "username": "RockEater900",
-      "text": "I eat rocks"
-    },
-
-    {
-      "id": 233,
-      "username": "frog",
-      "text": "kitty meowww omg meowww kitty woawwwwwww kitty"
-    },
-
-    {
-      "id": 33434,
-      "username": "meeps",
-      "text": "asdasdass asdasdsa asdasd ads ads asd asd asd asd ads"
-    }
-  ]
-
-};
-
-const testPost2 = {
-  "id": 2,
-
-  "author": "Joe Biden",
-  "pfpURL": "../assets/test-post.jpg",
-  "avgRating": 1.0,
-  "totalRatings": 400,
-
-  "imgURL": "../assets/test-post.jpg",
-  "description": "kitty",
-  "datePosted": "10-12-2012",
-  "comments": [
-    {
-      "id": 348,
-      "username": "RockEater900",
-      "text": "hello"
-    },
-
-    {
-      "id": 3443,
-      "username": "frog",
-      "text": "hello"
-    },
-
-    {
-      "id": 123,
-      "username": "meeps",
-      "text": "asdasdass asdasdsa asdasd ads ads asd asd asd asd ads"
-    }
-  ]
-
-};
-
-const posts = [testPost2, testPost2];
-
-//need to get posts and current user logged in from backend to display on home page
- */}
-
 export const Home = () => {
   const [currUser, setUser] = useState(null)
 
@@ -90,7 +18,7 @@ export const Home = () => {
   
 useEffect(() => {
 const checkUser = async () => {
-      const response = await fetch('http://localhost:5001/api/auth/me', {credentials:'include'});
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`, {credentials:'include'});
       if (!response.ok) {
         setUser(null)
         return;
@@ -104,7 +32,7 @@ const checkUser = async () => {
   
    useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`http://localhost:5001/api/posts?sort=${sortBy}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts?sort=${sortBy}`, {
         credentials: 'include'
       });
       const data = await response.json();

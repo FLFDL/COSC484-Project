@@ -18,7 +18,7 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
         const formData = new FormData();
         formData.append('image', newPfp);
 
-        const response = await fetch('http://localhost:5001/api/upload', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
             method: "POST",
             body: formData,
             credentials: "include"
@@ -44,7 +44,7 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
                 profilePicUrl = await uploadImage();
             }
 
-            const response = await fetch('http://localhost:5001/api/users/profile',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`,
                 {
                     method: "PATCH",
                     headers: {
