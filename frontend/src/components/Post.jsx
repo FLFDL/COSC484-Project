@@ -41,7 +41,7 @@ const Post = ({postData, currUser}) => {
     <div className='post' id = {postData._id}>
         <section className="post-header">
             <div className = "user-info">
-                <img src = {postData.author.profilePic} className = "profilePic" />
+                <img src = {postData.author.profilePic || null} className = "profilePic" />
                 <Link to = {`/profile/${postData.author.username}`} className = "username">{postData.author.username}</Link>
             </div>
             <p className = "light-gray">
@@ -71,7 +71,7 @@ const Post = ({postData, currUser}) => {
                     <button className = "post-comment-btn" type = "submit">Post</button>
                 </form>
                 {postData.comments?.map((comment) => (
-                    <Comment key = {comment.id} username = {comment.author.username} text = {comment.text}/>
+                    <Comment key = {comment._id} username = {comment.author.username} text = {comment.text}/>
                 ))}
             </section>
         </section>

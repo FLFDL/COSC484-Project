@@ -16,7 +16,7 @@ export const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const handleSaveProfile = async ({ username, bio, profilePic }) => {
+  const handleSaveProfile = async ({ username, password, bio, profilePic }) => {
     let profilePicUrl = null;
 
     if (profilePic) {
@@ -25,7 +25,8 @@ export const Profile = () => {
 
       const uploadResponse = await fetch('http://localhost:5001/api/upload', {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: "include"
       });
 
       const uploadData = await uploadResponse.json();
@@ -35,6 +36,7 @@ export const Profile = () => {
     const response = await fetch('http://localhost:5001/api/users/profile', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
+      credentials: "include",
       body: JSON.stringify({
         username,
         bio,
@@ -53,7 +55,7 @@ export const Profile = () => {
   useEffect(() => {
 
     const fetchUser = async () => {
-      const response = await fetch('http://localhost:5001/api/auth/me', {credentials:'include'});
+      const response = await fetch('http://localhost:5001/api/auth/me', { credentials: 'include' });
       if (!response.ok) {
         window.location.href = "/login";
         return;
@@ -63,7 +65,7 @@ export const Profile = () => {
       setBio(data.bio || "");
       setProfilePic(data.profilePic);
 
-      const postResponse = await fetch(`http://localhost:5001/api/users/${data.username}`, {credentials:'include'});
+      const postResponse = await fetch(`http://localhost:5001/api/users/${data.username}`, { credentials: 'include' });
       const postData = await postResponse.json();
       setPosts(postData.posts);
     }
@@ -135,11 +137,6 @@ export const Profile = () => {
               onClose={() => setShowModal(false)}
             />
 
-            <button onClick={() => setShowModal(false)}>
-              Cancel
-            </button>
-
-
           </div>
         </div>
 
@@ -158,6 +155,7 @@ export const Profile = () => {
               onSave={handleSaveProfile}
               onClose={() => setShowEditModal(false)}
             />
+
           </div>
 
         </div>
