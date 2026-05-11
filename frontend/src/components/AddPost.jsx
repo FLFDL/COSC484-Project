@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react';
-import pet1 from '../assets/pet1.png'
 import UploadPhoto from './UploadPhoto';
 
 export default function AddPost({ username, onAddPost, onClose }) {
