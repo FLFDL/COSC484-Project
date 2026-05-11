@@ -575,6 +575,22 @@ aside {
     position: absolute;
 }
 
+#profilePosts .delete-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 10;
+    background: rgba(255,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    width: auto;
+    margin: 0;
+}
+
 /*
 #profilePosts .post .post-header,
 #profilePosts .post .post-description,
