@@ -99,7 +99,9 @@ export const Profile = () => {
             {bio || "Example bio for a profile"}
           </p>
           <button
+            id = "editProfile-btn"
             onClick={() => setShowEditModal(true)}>
+              
             Edit Profile
           </button>
         </div>

@@ -1,9 +1,11 @@
 html {
     scroll-behavior: smooth;
 }
+
 * {
     box-sizing: border-box;
 }
+
 body {
 
     font-family: Arial, sans-serif;
@@ -19,7 +21,7 @@ main {
     background-color: #B5838D;
     display: flex;
     color: white;
-    overflow:hidden;
+    overflow: hidden;
     height: 4.8rem;
     width: 100%;
     padding: 0.625rem;
@@ -42,6 +44,7 @@ main {
     border-radius: 6px;
     transition: background-color 0.3s ease;
 }
+
 .navbar li,
 .navbar li button {
     list-style-type: none;
@@ -83,7 +86,7 @@ main {
     background-color: #f0f0f0;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .form-box h2 {
@@ -119,34 +122,57 @@ button:not(.open-comments-btn):hover {
     background-color: #a36b76;
 }
 
-.profileHeader{
-    display:flex;
+.profileHeader {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left:300px;
     padding: 20px;
-    border-bottom:#6d6875;
+    border-bottom: #6d6875;
 }
 
-#profilePic{
-    width: 150px; 
-    height:150px; 
-    border-radius:50%;
-    margin-right:20px;
+#profilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
     object-fit: cover;
 }
 
-#profileBio{
-    display:flex;
-    flex-direction:column;
+.profileBio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-#username{
-    font-size:24px;
+#username {
+    font-size: 24px;
 }
 
-#bio{
-    font-size:16px;
+#bio {
+    font-size: 16px;
 }
+
+#profilePosts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 60%;
+    margin: 20px auto;
+    padding: 1rem;
+    border: 1px solid #6d6875;
+    align-items: start;
+}
+
+#profilePosts,
+.addPostTile {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
 .addPostTile {
     display: flex;
     align-items: center;
@@ -162,26 +188,6 @@ button:not(.open-comments-btn):hover {
     background-color: #e6e6e6;
 }
 
-#profilePosts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    max-width: 900px;
-    margin: 20px auto;
-    padding-top: 10px;
-    border-top: 1px solid black;
-}
-
-#profilePosts,
-.addPostTile {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    border-radius: 8px;
-}
-
 .modal {
     position: fixed;
     inset: 0;
@@ -190,7 +196,7 @@ button:not(.open-comments-btn):hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
@@ -214,6 +220,7 @@ button:not(.open-comments-btn):hover {
     gap: 10px;
     justify-content: flex-end;
 }
+
 .profileActions {
     display: flex;
     gap: 10px;
@@ -239,9 +246,11 @@ button:not(.open-comments-btn):hover {
     max-width: 73%;
     background-color: #f0f0f0;
     max-height: 100%;
-    box-shadow: 
-    15px 0 15px -10px rgb(184, 180, 180), /* Right side shadow */
-    -15px 0 15px -10px rgb(184, 180, 180); /* Left side shadow */
+    box-shadow:
+        15px 0 15px -10px rgb(184, 180, 180),
+        /* Right side shadow */
+        -15px 0 15px -10px rgb(184, 180, 180);
+    /* Left side shadow */
 }
 
 aside {
@@ -283,7 +292,7 @@ aside {
 
 .username {
     font-weight: bold;
-    color:#a36b76;
+    color: #a36b76;
 }
 
 .comment {
@@ -293,12 +302,14 @@ aside {
 .light-gray {
     color: rgb(156, 155, 155);
 }
+
 .post-footer {
     display: flex;
     align-content: space-between;
     align-items: flex-end;
     margin: 1rem;
 }
+
 .post-header i {
     color: #f1c84f;
     font-size: 1.8rem;
@@ -312,6 +323,7 @@ aside {
 .post-header span {
     font-size: 1.1rem;
 }
+
 .collapsible-comments {
     border-top: 0.188rem solid rgba(215, 213, 213, 0.46);
     margin-top: 1rem;
@@ -322,7 +334,7 @@ aside {
 }
 
 /*dividers between comments, excepting the last one*/
-.collapsible-comments > *:not(:last-child) {
+.collapsible-comments>*:not(:last-child) {
     border-bottom: 0.188rem solid rgba(215, 213, 213, 0.46);
 }
 
@@ -344,17 +356,19 @@ aside {
     width: 10%;
     margin: 0.5rem;
 }
+
 .rating-container label {
     color: rgb(96, 91, 91);
 }
 
-.rating-container label:hover i, .rating-container label:hover ~ label i {
+.rating-container label:hover i,
+.rating-container label:hover~label i {
     color: #f1c84f;
     transform: scale(1.15);
 }
 
-.rating-container input[type="radio"]:checked + label i,
-.rating-container input[type="radio"]:checked ~ label i {
+.rating-container input[type="radio"]:checked+label i,
+.rating-container input[type="radio"]:checked~label i {
     color: #f1c84f;
 }
 
@@ -380,10 +394,10 @@ aside {
     color: rgb(156, 155, 155);
 }
 
-.user-info img{
+.user-info img {
     height: 3rem;
     width: 3rem;
-    border-radius:50%;
+    border-radius: 50%;
     margin-right: 0.5rem;
 }
 
@@ -393,7 +407,8 @@ aside {
     flex-grow: 1;
 }
 
-.comment, .post-description{
+.comment,
+.post-description {
     margin: 1rem;
 }
 
@@ -421,6 +436,7 @@ aside {
     display: block;
     margin-top: 0.4rem;
 }
+
 .post-comment-btn {
     width: 4rem;
     padding: 0.4rem;
@@ -459,10 +475,10 @@ aside {
 
 .text-block {
     flex: 1;
-    background-color: #f2bfca; 
-    padding: 40px; 
-    border-radius: 12px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+    background-color: #f2bfca;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -470,9 +486,9 @@ aside {
 
 .text-block p {
     text-align: left;
-    line-height: 1.8; 
-    margin: 0; 
-    color: #4a4a4a; 
+    line-height: 1.8;
+    margin: 0;
+    color: #4a4a4a;
 }
 
 .about-block img {
@@ -480,8 +496,9 @@ aside {
     width: 100%;
     max-width: 450px;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
+
 /* End about page css*/
 
 /* Community guidelines page css */
@@ -506,7 +523,7 @@ aside {
 #guidelines-toc {
     list-style-type: none;
     font-size: 1.25rem;
-    
+
 }
 
 #guidelines-toc a {
@@ -515,7 +532,7 @@ aside {
     font-size: 1.2rem;
     transition: color 0.3s ease;
     padding: .5rem 0;
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid;
 }
 
 #guidelines-toc a:hover {
@@ -553,6 +570,11 @@ aside {
     font-weight: bold;
 }
 
+#editProfile-btn {
+    min-width: 5rem;
+    max-width: 10rem;
+}
+
 /**/
 
 #profilePosts .post {
@@ -560,7 +582,7 @@ aside {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     margin: 0;
     overflow: hidden;
@@ -571,7 +593,7 @@ aside {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;  
+    display: block;
     position: absolute;
 }
 
@@ -580,7 +602,7 @@ aside {
     bottom: 8px;
     right: 8px;
     z-index: 10;
-    background: rgba(255,0,0,0.7);
+    background: rgba(255, 0, 0, 0.7);
     color: white;
     border: none;
     border-radius: 4px;
@@ -601,6 +623,7 @@ aside {
 #profilePosts .post .post-header {
     max-height: 5rem;
 }
+
 /*
 #profilePosts .post .post-header,
 #profilePosts .post .post-description,
