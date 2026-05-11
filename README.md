@@ -1,2 +1,2 @@
 # COSC484WebDev
-Web dev depository for Julie's Group
+The Vercel issue is resolved but there are security issues in backend
