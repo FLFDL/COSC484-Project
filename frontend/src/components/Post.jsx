@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import Rating from './Rating';
 import Comment from './Comment';
 
@@ -7,10 +7,13 @@ import Comment from './Comment';
 const Post = ({postData, currUser}) => {
     console.log(postData);
     const commentSectionRef = useRef(null);
+    const navigate = useNavigate();
+    const [comments, setComments] = useState(postData.comments || []);
+    const [commentText, setCommentText] = useState('');
     
     //need to check user session
-    const isLoggedIn = true;
-
+    const isLoggedIn = !!currUser;
+    
     const toggleComments = () => {
         const section = commentSectionRef.current;
 
@@ -19,23 +22,31 @@ const Post = ({postData, currUser}) => {
             section.classList.toggle('hidden');
         }
         else {
-            console.log("try logging in to see and post comments!");
+            navigate('/login');
         }
     }
     
     const postComment = async (event, postId, currUser) => {
         event.preventDefault();
-        const addComment = new FormData(event.currentTarget);
 
-        //adding parent post + commenters username to form data
-        addComment.set('commenter', currUser);
-        addComment.set('post-id', postId);
-        //logging comment data
+        
         const data = Object.fromEntries(addComment);
-        console.log(data);
+        const uploadComment = await fetch(`http://localhost:5001/api/posts/${postId}/comments`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ text: commentText })
+        })
+        const comment = await uploadComment.json();
+        if (!uploadComment.ok) throw new error(data.error)
+
+        setComments(old => [...old,comment ])
+        setCommentText('');
+        
         /*send this rating to backend: update to numRatings++ and 
         compute new average rating*/
     }
+
 
     return (
     <div className='post' id = {postData._id}>
@@ -66,7 +77,9 @@ const Post = ({postData, currUser}) => {
                 <form method="POST" className = "comment" onSubmit = {(e) => postComment(e, postData._id, currUser)}>
                     <label>
                         <Link className = "username" to="/public-profile">{currUser}</Link>:
-                        <textarea className = "comment-box" name = "comment-text" placeholder = "Leave a comment..."></textarea>
+                        <textarea className = "comment-box" name = "comment-text" placeholder = "Leave a comment..."
+                        value = {commentText}
+                        onChange = {(text) => setCommentText(text.target.value)}></textarea>
                     </label>
                     <button className = "post-comment-btn" type = "submit">Post</button>
                 </form>
