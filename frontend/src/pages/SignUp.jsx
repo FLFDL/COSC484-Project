@@ -49,7 +49,7 @@ export const SignUp = () => {
         const imageData = new FormData();
         imageData.append('image', croppedImg);
 
-        const uploadRes = await fetch(`http://localhost:5001/api/upload`, {
+        const uploadRes = await fetch(`/api/upload`, {
           method: 'POST',
           credentials: 'include',
           body: imageData
@@ -64,7 +64,7 @@ export const SignUp = () => {
         pfpUrl = uploadData.imageUrl;
       }
 
-      const res = await fetch(`http://localhost:5001/api/auth/register`, {
+      const res = await fetch(`/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
