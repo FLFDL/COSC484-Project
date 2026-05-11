@@ -8,7 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/auth/me`,
+    fetch(`/api/auth/me`,
       {
         credentials: "include"
       }
@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
-    await fetch(`http://localhost:5001/api/auth/logout`, {
+    await fetch(`1/api/auth/logout`, {
       method: "POST",
       credentials: "include"
     });
