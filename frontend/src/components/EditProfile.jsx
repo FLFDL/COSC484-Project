@@ -44,7 +44,7 @@ export default function EditProfile({ username, bio, onSave, onClose }) {
                 profilePicUrl = await uploadImage();
             }
 
-            const response = await fetch(`1/api/users/profile`,
+            const response = await fetch(`/api/users/profile`,
                 {
                     method: "PATCH",
                     headers: {
