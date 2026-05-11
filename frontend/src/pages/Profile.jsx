@@ -59,7 +59,7 @@ export const Profile = () => {
     const fetchUser = async () => {
       const response = await fetch(`/api/auth/me`, { credentials: 'include' });
       if (!response.ok) {
-        window.location.href = "/login";
+        //window.location.href = "/login";
         return;
       }
       const data = await response.json();
