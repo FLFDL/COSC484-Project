@@ -32,7 +32,7 @@ export const Login = () => {
       }
 
       //navigate to profile page afterward
-      navigate('/profile');
+      //navigate('/profile');
 
     } catch (err) {
       console.error(err);
