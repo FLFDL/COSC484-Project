@@ -16,7 +16,7 @@ function App() {
           <Route path = "/about" element={<About/>}/>
           <Route path = "/community-guidelines" element={<CommunityGuidelines/>}/>
           <Route path = "/profile" element={<Profile/>}/>
-          <Route path="/public-profile" element={<PublicProfile />} />
+          <Route path="/profile/:username" element={<PublicProfile />} />
           <Route path = "*" element = {<NotFound/>}/>
         </Route>
         
