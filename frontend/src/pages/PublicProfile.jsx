@@ -14,7 +14,7 @@ export const PublicProfile = () => {
   useEffect(() => {
 
     const fetchUser = async () => {
-      const postResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${routeUsername}`, { credentials: 'include' });
+      const postResponse = await fetch(`http://localhost:5001/api/users/${routeUsername}`, { credentials: 'include' });
       const postData = await postResponse.json();
       setUsername(postData.user.username);
       setBio(postData.user.bio || "");

@@ -8,7 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`,
+    fetch(`http://localhost:5001/api/auth/me`,
       {
         credentials: "include"
       }
@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+    await fetch(`http://localhost:5001/api/auth/logout`, {
       method: "POST",
       credentials: "include"
     });

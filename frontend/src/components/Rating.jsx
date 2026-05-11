@@ -22,7 +22,7 @@ const Rating = ({postId}) => {
         /*send this rating to backend*/
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postId}/rate`, {
+            const res = await fetch(`http://localhost:5001/api/posts/${postId}/rate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

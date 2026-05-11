@@ -30,7 +30,7 @@ const Post = ({ postData, currUser, onDelete }) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postData._id}`, {
+            const response = await fetch(`http://localhost:5001/api/posts/${postData._id}`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -44,7 +44,7 @@ const Post = ({ postData, currUser, onDelete }) => {
 
     const postComment = async (event, postId, currUser) => {
         event.preventDefault();
-        const uploadComment = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postData._id}/comments`, {
+        const uploadComment = await fetch(`http://localhost:5001/api/posts/${postData._id}/comments`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
