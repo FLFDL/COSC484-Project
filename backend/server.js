@@ -37,10 +37,10 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.log('db connection error:', err))
 
 // routes
-app.use('/api/auth', authRoutes)
-app.use('/api/posts', postRoutes)
-app.use('/api/users', userRoutes)
-app.use('/api/upload', uploadRoutes)
+app.use('/auth', authRoutes)
+app.use('/posts', postRoutes)
+app.use('/users', userRoutes)
+app.use('/upload', uploadRoutes)
 
 // health check
 app.get('/', (req, res) => {
